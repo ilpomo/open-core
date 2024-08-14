@@ -12,4 +12,4 @@ def actor() -> AbstractActor:
             # basic abc implementation
             pass
 
-    return Actor()
+    return Actor(name='AbstractActor')

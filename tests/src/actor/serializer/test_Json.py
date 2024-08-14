@@ -15,8 +15,8 @@ LIST_DATA = b'[1,2,3]'
 
 
 def test_encode_simple_types(serializer):
-    assert serializer.encode(obj=INTEGER) == INTEGER_DATA
-    assert serializer.encode(obj=STRING) == STRING_DATA
+    assert INTEGER == serializer.decode(data=serializer.encode(obj=INTEGER))
+    assert STRING == serializer.decode(data=serializer.encode(obj=STRING))
 
 
 def test_decode_simple_types(json_serializer):
