@@ -1,4 +1,4 @@
-![`open-core` header image.](docs/header.jpg)
+![`open-core` header image.](asset/header.jpg)
 
 ![Repo size](https://img.shields.io/github/repo-size/ilpomo/open-core?color=70e000)
 ![License](https://img.shields.io/github/license/ilpomo/open-core?color=70e000)
@@ -12,10 +12,11 @@
 >  
 > Pieter Hintjens
 
-`open-core` is a neuron-based processing framework for Python software. It helps you build massively parallel, 
-concurrent and asynchronous code that follows the [actor model](https://en.wikipedia.org/wiki/Actor_model) paradigm: 
-multiple independent processes emitting and receiving signals to and from each other, asynchronously, without the need 
-of a central broker or coordinator. Like neurons.
+`open-core` is an event-based processing framework for Python software.
+It helps build massively parallel, concurrent, and asynchronous code that follows the [actor model](https://en.wikipedia.org/wiki/Actor_model) paradigm: 
+multiple independent asynchronous process services emitting and receiving events to and from each other, without the 
+need of a central broker or coordinator.
+It tries to achieve this in the most intuitive, simple, and straightforward possible way.
 
 ## Design
 
@@ -23,7 +24,7 @@ of a central broker or coordinator. Like neurons.
   - Parallelism through multi-processing for CPU bound tasks
   - Concurrency based on multi-threading for I/O bound tasks
   - Concurrency based on Asyncio for network-related tasks
-  - Asynchronous [ZeroMQ](https://github.com/zeromq/pyzmq) sockets
+  - Asynchronous [ZeroMQ](https://github.com/zeromq/pyzmq) contexts and sockets
 
 ## Installation
 
@@ -36,9 +37,15 @@ pip install open-core
 `open-core` will always try to reduce dependencies to the extreme minimum. The current dependencies are specified in 
 the `requirements.txt` file::
 
-- **PyZMQ**: Python bindings for ZeroMQ, a high-performance asynchronous messaging library.
+- [msgspec](https://github.com/jcrist/msgspec): A fast serialization and validation library, with builtin support for JSON, MessagePack, YAML, and TOML.
+- [PyZMQ](https://github.com/zeromq/pyzmq): Python bindings for ZeroMQ.
+- [Pytest](https://github.com/pytest-dev/pytest): The pytest framework makes it easy to write small tests, yet scales to support complex functional testing.
 
-Ensure you have the latest versions of these dependencies installed.
+### Installing dependencies through the requirements.txt file
+
+```sh
+pip install -r requirements.txt
+```
 
 ## Acknowledgments
 
