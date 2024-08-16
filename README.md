@@ -1,8 +1,8 @@
 ![`open-core` header image.](asset/header.jpg)
 
 <p align="center">
-   <a href="https://github.com/ilpomo/open-core/actions/workflows/python-app.yml">
-      <img src="https://github.com/ilpomo/open-core/actions/workflows/python-app.yml/badge.svg">
+   <a href="https://github.com/ilpomo/open-core/actions/workflows/workflow.yml">
+      <img src="https://github.com/ilpomo/open-core/actions/workflows/workflow.yml/badge.svg">
    </a>
    <a href="https://github.com/ilpomo/open-core/">
       <img src="https://img.shields.io/github/repo-size/ilpomo/open-core?color=70e000">
