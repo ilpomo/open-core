@@ -8,5 +8,5 @@ __all__ = [
     'AbstractSerializer',
     'Json',
     'MessagePack',
-    'Pickle'
+    'Pickle',
 ]

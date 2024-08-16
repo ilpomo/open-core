@@ -1,12 +1,12 @@
 from src.actor.AbstractActor import AbstractActor
-from src.actor.serializer import *
-from src.actor.socket_manager import *
-from src.actor.utils import *
+from src.actor.serializer import Json, MessagePack, Pickle
+from src.actor.socket_manager import SocketManager
+from src.actor.utils import setup_event_loop, start_actor
 
 
 __all__ = [
     'AbstractActor',
-    'AbstractSerializer', 'Json', 'MessagePack', 'Pickle',
+    'Json', 'MessagePack', 'Pickle',
     'SocketManager',
     'setup_event_loop', 'start_actor'
 ]
