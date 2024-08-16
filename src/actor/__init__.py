@@ -7,6 +7,6 @@ from src.actor.utils import *
 __all__ = [
     'AbstractActor',
     'AbstractSerializer', 'Json', 'MessagePack', 'Pickle',
-    'SocketManager', 'Emitter', 'Receiver',
+    'SocketManager',
     'setup_event_loop', 'start_actor'
 ]
