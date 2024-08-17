@@ -1,16 +1,13 @@
 ![`open-core` header image.](asset/header.jpg)
 
-<p align="center">
-   <a href="https://github.com/ilpomo/open-core/actions/workflows/workflow.yml">
-      <img src="https://github.com/ilpomo/open-core/actions/workflows/workflow.yml/badge.svg">
-   </a>
-   <a href="https://github.com/ilpomo/open-core/">
-      <img src="https://img.shields.io/github/repo-size/ilpomo/open-core?color=70e000">
-   </a>
-   <a href="https://github.com/ilpomo/open-core/blob/main/LICENSE">
-      <img src="https://img.shields.io/github/license/ilpomo/open-core?color=70e000">
-   </a>
-</p>
+![Test and Analyze](https://github.com/ilpomo/open-core/actions/workflows/workflow.yml/badge.svg)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ilpomo_open-core&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=ilpomo_open-core)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=ilpomo_open-core&metric=bugs)](https://sonarcloud.io/summary/new_code?id=ilpomo_open-core)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=ilpomo_open-core&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=ilpomo_open-core)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=ilpomo_open-core&metric=coverage)](https://sonarcloud.io/summary/new_code?id=ilpomo_open-core)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=ilpomo_open-core&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=ilpomo_open-core)
+![Size](https://img.shields.io/github/repo-size/ilpomo/open-core?color=70e000)
+![License](https://img.shields.io/github/license/ilpomo/open-core?color=70e000)
 
 # open-core: event-based processing framework
 
