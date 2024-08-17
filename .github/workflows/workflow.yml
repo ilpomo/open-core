@@ -36,7 +36,11 @@ jobs:
 
       - name: Run tests and generate coverage report
         run: |
-          pytest --cov=src --cov-report xml:coverage.xml
+          pytest --cov=src --cov-report xml:coverage.xml --cov-report term-missing
+
+      - name: Prepare coverage report for SonarCloud
+        run: |
+          sed -i 's|/home/runner/work/open-core/open-core/src|src|g' coverage.xml
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
