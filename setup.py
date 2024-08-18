@@ -14,7 +14,7 @@ def parse_requirements(filename: str) -> list[str]:
 
 setup(
     name='open-core',
-    version='0.1.3',
+    version='0.1.4',
     author='Thomas Cercato',
     author_email='thomas.cercato@gmail.com',
     description='Event-based processing framework.',

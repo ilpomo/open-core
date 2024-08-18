@@ -6,7 +6,6 @@
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=ilpomo_open-core&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=ilpomo_open-core)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=ilpomo_open-core&metric=coverage)](https://sonarcloud.io/summary/new_code?id=ilpomo_open-core)
 [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=ilpomo_open-core&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=ilpomo_open-core)
-![Size](https://img.shields.io/github/repo-size/ilpomo/open-core?color=70e000)
 
 # open-core: event-based processing framework
 
