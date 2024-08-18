@@ -21,7 +21,9 @@ setup(
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
     url='https://github.com/ilpomo/open-core',
-    packages=find_packages(exclude=('asset', 'tests', 'tests.*')),
+    packages=find_packages(
+        include=('src',),
+        exclude=('asset', 'example', 'tests',)),
     classifiers=[
         'Programming Language :: Python :: 3',
         'License :: OSI Approved :: GPL-3.0 License',
