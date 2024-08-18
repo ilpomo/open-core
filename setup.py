@@ -30,9 +30,9 @@ setup(
         'Operating System :: OS Independent',
     ],
     python_requires='>=3.12',
-    install_requires=parse_requirements(filename='requirements.txt'),
+    install_requires=['msgspec~=0.18.6', 'pyzmq~=26.1.0', 'uvloop~=0.20.0'],
     extras_require={
-        'dev': parse_requirements(filename='requirements-dev.txt'),
-        'test': ['pytest', 'pytest-asyncio', 'pytest-mock', 'setuptools']
+        'dev': ['pytest~=8.3.2', 'pytest-asyncio~=0.23.8', 'pytest-mock~=3.14.0', 'setuptools~=72.2.0'],
+        'test': ['pytest~=8.3.2', 'pytest-asyncio~=0.23.8', 'pytest-mock~=3.14.0', 'setuptools~=72.2.0']
     },
 )
