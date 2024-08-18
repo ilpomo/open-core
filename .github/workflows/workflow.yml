@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: CI/CD
 
 on:
   push:
@@ -70,22 +70,19 @@ jobs:
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
-            fetch-depth: 0
+          fetch-depth: 0
+
+      - name: Extract version from setup.py
+        id: get_version
+        run: echo "VERSION=$(python setup.py --version | grep -o '[0-9]\+\.[0-9]\+\.[0-9]\+')" >> $GITHUB_ENV
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-
-      - name: Check working directory
-        run: |
-          echo "Current working directory:"
-          pwd
-          echo "Directory contents:"
-          ls -al
 
       - name: Build and Publish to PyPI via Trusted Publishers
         run: |

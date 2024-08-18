@@ -1,6 +1,6 @@
 ![`open-core` header image.](asset/header.jpg)
 
-![CI/CD Pipeline](https://github.com/ilpomo/open-core/actions/workflows/workflow.yml/badge.svg)
+![CI/CD](https://github.com/ilpomo/open-core/actions/workflows/workflow.yml/badge.svg)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ilpomo_open-core&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=ilpomo_open-core)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=ilpomo_open-core&metric=bugs)](https://sonarcloud.io/summary/new_code?id=ilpomo_open-core)
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=ilpomo_open-core&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=ilpomo_open-core)

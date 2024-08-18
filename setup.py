@@ -14,7 +14,7 @@ def parse_requirements(filename: str) -> list[str]:
 
 setup(
     name='open-core',
-    version='0.1.2',
+    version='0.1.3',
     author='Thomas Cercato',
     author_email='thomas.cercato@gmail.com',
     description='Event-based processing framework.',
@@ -22,7 +22,6 @@ setup(
     long_description_content_type='text/markdown',
     url='https://github.com/ilpomo/open-core',
     packages=find_packages(
-        include=('src',),
         exclude=('asset', 'example', 'tests',)),
     classifiers=[
         'Programming Language :: Python :: 3',
@@ -33,6 +32,5 @@ setup(
     install_requires=['msgspec~=0.18.6', 'pyzmq~=26.1.0', 'uvloop~=0.20.0'],
     extras_require={
         'dev': ['pytest~=8.3.2', 'pytest-asyncio~=0.23.8', 'pytest-mock~=3.14.0', 'setuptools~=72.2.0'],
-        'test': ['pytest~=8.3.2', 'pytest-asyncio~=0.23.8', 'pytest-mock~=3.14.0', 'setuptools~=72.2.0']
     },
 )
