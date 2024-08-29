@@ -122,7 +122,12 @@ jobs:
   publish:
     needs: tag-and-release
     runs-on: ubuntu-latest
-    environment: pypi-publish
+    environment:
+      name: pypi
+      url: https://pypi.org/p/open-core
+    permissions:
+      id-token: write
+      contents: read
 
     steps:
       - name: Checkout repository
@@ -141,10 +146,5 @@ jobs:
           pip install build
           python -m build
 
-      - name: Publish to PyPI via Trusted Publishers
-        environment:
-          name: pypi
-          url: https://pypi.org/p/open-core
-        permissions:
-          id-token: write
+      - name: Publish package distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
