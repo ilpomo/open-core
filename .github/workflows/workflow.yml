@@ -142,8 +142,9 @@ jobs:
           python -m build
 
       - name: Publish to PyPI via Trusted Publishers
+        environment:
+          name: pypi
+          url: https://pypi.org/p/open-core
+        permissions:
+          id-token: write
         uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          owner: ilpomo
-          publisher-id: ilpomo
-          repository-url: https://github.com/ilpomo/open-core
