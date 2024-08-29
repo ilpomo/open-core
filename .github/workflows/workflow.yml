@@ -97,11 +97,11 @@ jobs:
 
       - name: Create and push the new tag
         run: |
-          echo "Creating tag: $VERSION"
+          echo "Creating tag: ${{ env.VERSION }}"
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
-          git tag -a "$VERSION" -m "Release version $VERSION"
-          git push origin "$VERSION"
+          git tag -a "${{ env.VERSION }}" -m "Release version ${{ env.VERSION }}"
+          git push origin "refs/tags/${{ env.VERSION }}"
 
       - name: Create GitHub Release
         uses: actions/create-release@v1
