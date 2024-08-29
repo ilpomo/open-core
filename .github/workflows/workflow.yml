@@ -27,11 +27,14 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install .[dev]
-          pip install toml-cli
+          pip install toml
 
-      - name: Extract open-core version
+      - name: Extract version from pyproject.toml
         id: get_version
-        run: echo "VERSION=$(toml get pyproject.toml project.version)" >> $GITHUB_ENV
+        run: |
+          VERSION=$(python -c "import toml; print(toml.load('pyproject.toml')['project']['version'])")
+          echo "Extracted version: $VERSION"
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
 
       - name: Lint with Ruff
         run: |
@@ -89,11 +92,14 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install .[dev]
-          pip install toml-cli
+          pip install toml
 
       - name: Extract version from pyproject.toml
         id: get_version
-        run: echo "VERSION=$(toml get pyproject.toml project.version)" >> $GITHUB_ENV
+        run: |
+          VERSION=$(python -c "import toml; print(toml.load('pyproject.toml')['project']['version'])")
+          echo "Extracted version: $VERSION"
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
 
       - name: Create and push the new tag
         run: |
