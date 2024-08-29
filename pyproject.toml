@@ -6,8 +6,6 @@ build-backend = "setuptools.build_meta"
 name = "open-core"
 version = "0.2.0"
 description = "Event-based processing framework."
-long_description = "file: README.md"
-long_description_content_type = "text/markdown"
 readme = "README.md"
 authors = [{ name = "Thomas Cercato", email = "thomas.cercato@gmail.com" }]
 license = { text = "GPL-3.0" }
@@ -23,9 +21,6 @@ dependencies = [
     "uvloop~=0.20.0; platform_system != 'Windows'"
 ]
 
-[tool.setuptools]
-packages = { find = { exclude = ["asset", "example", "tests"] } }
-
 [project.optional-dependencies]
 dev = [
     "pytest~=8.3.2",
@@ -34,3 +29,6 @@ dev = [
     "pytest-mock~=3.14.0",
     "ruff~=0.6.2",
 ]
+
+[tool.setuptools]
+packages = { find = { exclude = ["asset", "example", "tests"] } }
