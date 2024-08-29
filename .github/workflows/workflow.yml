@@ -29,6 +29,10 @@ jobs:
           pip install .[dev]
           pip install toml-cli
 
+      - name: Extract open-core version
+        id: get_version
+        run: echo "VERSION=$(toml get pyproject.toml project.version)" >> $GITHUB_ENV
+
       - name: Lint with Ruff
         run: |
           ruff check --output-format=github .
@@ -48,7 +52,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >
-            -Dsonar.projectVersion=$(toml get pyproject.toml project.version)
+            -Dsonar.projectVersion=${{ env.VERSION }}
             -Dsonar.python.coverage.reportPaths=coverage.xml
             -Dsonar.python.version=${{ matrix.python-version }}
 
@@ -87,9 +91,12 @@ jobs:
           pip install .[dev]
           pip install toml-cli
 
+      - name: Extract version from pyproject.toml
+        id: get_version
+        run: echo "VERSION=$(toml get pyproject.toml project.version)" >> $GITHUB_ENV
+
       - name: Create and push the new tag
         run: |
-          VERSION=$(toml get pyproject.toml project.version)
           echo "Creating tag: $VERSION"
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
