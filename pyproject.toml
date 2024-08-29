@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "open-core"
-version = "0.1.4"
+version = "0.2.0"
 description = "Event-based processing framework."
 long_description = "file: README.md"
 long_description_content_type = "text/markdown"

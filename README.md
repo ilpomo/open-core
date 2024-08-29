@@ -87,7 +87,7 @@ but no matter what, in the end this is one will be achieved thanks to `open-core
 
 ## Installation
 
-`open-core` ~~is listed~~ in The Python Package Index (PyPI), so ~~it is~~ possible to get it using `pip`, 
+`open-core` is listed in The Python Package Index (PyPI), so t is possible to get it using `pip`, 
 but the tests folder is not included in the default package.
 To run the tests, it is necessary to clone this repository.
 
@@ -114,6 +114,7 @@ For end users, the dependencies are specified in the `pyproject.toml` file and i
 JSON, MessagePack, YAML, and TOML.
 - [PyZMQ](https://github.com/zeromq/pyzmq): Python bindings for ZeroMQ.
 - [uvloop](https://github.com/MagicStack/uvloop): Ultra fast asyncio event loop.
+  <sub>(**NOTE**: not available on Windows, fallback to Python default asyncio event loop.)</sub>
 
 For contributors, the extra dependencies for testing and development are specified in the `pyproject.toml` file under 
 the dev optional dependencies group, install them using `pip install open-core[dev]`.
