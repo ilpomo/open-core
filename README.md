@@ -107,27 +107,24 @@ git clone https://github.com/ilpomo/open-core.git
 
 `open-core` will always reduce dependencies to the extreme minimum.
 
-For end users, the dependencies are specified in the `requirements.txt` file:
+For end users, the dependencies are specified in the `pyproject.toml` file and installed automatically when using 
+`pip install open-core`:
 
 - [msgspec](https://github.com/jcrist/msgspec): A fast serialization and validation library, with builtin support for 
 JSON, MessagePack, YAML, and TOML.
 - [PyZMQ](https://github.com/zeromq/pyzmq): Python bindings for ZeroMQ.
 - [uvloop](https://github.com/MagicStack/uvloop): Ultra fast asyncio event loop.
 
-For contributors, the extra dependencies for testing are specified in the `requirements-dev.txt` file.
+For contributors, the extra dependencies for testing and development are specified in the `pyproject.toml` file under 
+the dev optional dependencies group, install them using `pip install open-core[dev]`.
 
 - [pytest](https://github.com/pytest-dev/pytest): The pytest framework makes it easy to write small tests, yet scales 
 to support complex functional testing.
 - [pytest-asyncio](https://github.com/pytest-dev/pytest-asyncio): Asyncio support for pytest.
-- [pytest-mock](https://github.com/pytest-dev/pytest-mock): Thin-wrapper around the mock package for easier use with pytest
-- [setuptools](https://github.com/pypa/setuptools): The Setuptools build system.
-
-### Installing dependencies through the requirements.txt file
-
-```sh
-pip install -r requirements.txt  # for end users
-pip install -r requirements-dev.txt  # also necessary for contributors
-```
+- [pytest-cov](https://github.com/pytest-dev/pytest-cov): Pytest plugin for measuring coverage.
+- [pytest-mock](https://github.com/pytest-dev/pytest-mock): Thin-wrapper around the mock package for easier use with 
+pytest.
+- [ruff](https://github.com/charliermarsh/ruff): An extremely fast Python linter.
 
 ## Acknowledgments
 

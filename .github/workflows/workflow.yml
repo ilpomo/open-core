@@ -1,31 +1,22 @@
 name: CI/CD
 
 on:
-  push:
-    branches:
-      - main
-    tags:
-      - 'v*.*.*'
   pull_request:
     branches:
       - main
 
 jobs:
-  test-and-analyze:
+  lint-test-and-scan:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ['3.12']
+        python-version: ['3.10', '3.11', '3.12']
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - name: Extract version from setup.py
-        id: get_version
-        run: echo "VERSION=$(python setup.py --version | grep -o '[0-9]\+\.[0-9]\+\.[0-9]\+')" >> $GITHUB_ENV
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
@@ -35,17 +26,14 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          pip install -r requirements-dev.txt
-          pip install pytest-cov
+          pip install .[dev]
+          pip install toml-cli
 
       - name: Lint with Ruff
         run: |
-          pip install ruff
           ruff check --output-format=github .
-        continue-on-error: true
 
-      - name: Run tests and generate coverage report
+      - name: Test with Pytest
         run: |
           pytest --cov=src --cov-report xml:coverage.xml --cov-report term-missing
 
@@ -53,21 +41,39 @@ jobs:
         run: |
           sed -i 's|/home/runner/work/open-core/open-core/src|src|g' coverage.xml
 
-      - name: SonarCloud Scan
+      - name: Scan with SonarCloud
         uses: SonarSource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >
-            -Dsonar.projectVersion=${{ env.VERSION }}
+            -Dsonar.projectVersion=$(toml get pyproject.toml project.version)
             -Dsonar.python.coverage.reportPaths=coverage.xml
             -Dsonar.python.version=${{ matrix.python-version }}
 
-  publish:
-    needs: test-and-analyze
+  merge-pull-request:
+    needs: lint-test-and-scan
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    if: success()
+
+    steps:
+      - name: Checkout `main` branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: main
+
+      - name: Merge `dev` branch into `main` branch
+        run: |
+          git fetch origin
+          git checkout main
+          git merge dev
+          git push origin main
+
+  tag-and-release:
+    needs: merge-pull-request
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
@@ -75,27 +81,56 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Extract version from setup.py
-        id: get_version
-        run: echo "VERSION=$(python setup.py --version | grep -o '[0-9]\+\.[0-9]\+\.[0-9]\+')" >> $GITHUB_ENV
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-
-      - name: Build and Publish to PyPI via Trusted Publishers
+      - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install build
-          python -m build
+          pip install .[dev]
+          pip install toml-cli
+
+      - name: Create and push the new tag
+        run: |
+          VERSION=$(toml get pyproject.toml project.version)
+          echo "Creating tag: $VERSION"
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git tag -a "$VERSION" -m "Release version $VERSION"
+          git push origin "$VERSION"
 
       - name: Create GitHub Release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ env.VERSION }}
-          release_name: ${{ env.VERSION }}
+          tag_name: "$VERSION"
+          release_name: "$VERSION"
           draft: false
           prerelease: false
+
+  publish:
+    needs: tag-and-release
+    runs-on: ubuntu-latest
+    environment: pypi-publish
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Build package
+        run: |
+          python -m pip install --upgrade pip
+          pip install build
+          python -m build
+
+      - name: Publish to PyPI via Trusted Publishers
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          owner: ilpomo
+          publisher-id: ilpomo
+          repository-url: https://github.com/ilpomo/open-core
