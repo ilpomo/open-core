@@ -72,6 +72,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: List all artifacts
+      - run: |
+          curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+          https://api.github.com/repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts
+
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
