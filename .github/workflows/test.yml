@@ -62,7 +62,7 @@ jobs:
 
       - name: Fix coverage report paths
         run: |
-          sed -i 's|/home/runner/work/open-core/open-core/src|src|g' coverage.xml
+          sed -i'' -e 's|/home/runner/work/open-core/open-core/src|src|g' coverage.xml
 
       - name: List files after tests
         run: ls -la
