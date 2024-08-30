@@ -99,10 +99,10 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const { context, github } = require('@actions/github');
+            const github = require('@actions/github');
             await github.pulls.merge({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: context.issue.number,
+              owner: github.context.repo.owner,
+              repo: github.context.repo.repo,
+              pull_number: github.context.issue.number,
               merge_method: 'squash'  # or 'merge' or 'rebase'
             });
