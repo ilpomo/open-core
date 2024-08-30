@@ -58,26 +58,13 @@ jobs:
 
       - name: Run tests with Pytest
         run: |
-          pytest --cov=src --cov-report xml:coverage.xml --cov-report term-missing
-
-      - name: Fix coverage report paths
-        run: |
-          sed -i'' -e 's|/home/runner/work/open-core/open-core/src|src|g' coverage.xml
-
-      - name: List files after tests
-        run: |
-          if [[ "$RUNNER_OS" == "Windows" ]]; then
-            dir
-          else
-            ls -la
-          fi
-        shell: bash
+          pytest --cov=src --cov-report=xml:coverage-${{ matrix.os }}-${{ matrix.python-version }}.xml
 
       - name: Upload coverage report
         uses: actions/upload-artifact@v4
         with:
-          name: coverage-report-${{ matrix.os }}-${{ matrix.python-version }}
-          path: coverage.xml
+          name: coverage-reports
+          path: coverage-${{ matrix.os }}-${{ matrix.python-version }}.xml
 
   analyze:
     name: Analyze
@@ -85,11 +72,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: List all artifacts
-        run: |
-          curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-          https://api.github.com/repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts
-
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
@@ -97,21 +79,12 @@ jobs:
 
       - name: Download coverage reports
         uses: actions/download-artifact@v4
-        with:
-          name: coverage-report-*
-          path: coverage-reports/
-
-      - name: Combine coverage reports
-        run: |
-          pip install coverage
-          coverage combine coverage-reports/*/coverage.xml
-          coverage xml -o coverage_combined.xml
 
       - name: Run SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@v3
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-          sonar-scanner -Dsonar.python.coverage.reportPaths=coverage_combined.xml
 
   auto-merge:
     name: Auto Merge
