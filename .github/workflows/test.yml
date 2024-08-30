@@ -60,8 +60,15 @@ jobs:
         run: |
           pytest --cov=src --cov-report xml:coverage.xml --cov-report term-missing
 
+      - name: Fix coverage report paths
+        run: |
+          sed -i 's|/home/runner/work/open-core/open-core/src|src|g' coverage.xml
+
+      - name: List files after tests
+        run: ls -la
+
       - name: Upload coverage report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: coverage-report-${{ matrix.os }}-${{ matrix.python-version }}
           path: coverage.xml
@@ -83,7 +90,7 @@ jobs:
           fetch-depth: 0
 
       - name: Download coverage reports
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: coverage-report-*
           path: coverage-reports/
