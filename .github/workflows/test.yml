@@ -58,7 +58,7 @@ jobs:
 
       - name: Run tests with Pytest
         run: |
-          pytest --cov=. --cov-report=xml
+          pytest --cov=src --cov-report xml:coverage.xml --cov-report term-missing
 
       - name: Upload coverage report
         uses: actions/upload-artifact@v3
