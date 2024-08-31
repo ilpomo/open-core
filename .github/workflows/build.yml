@@ -38,6 +38,10 @@ jobs:
 
         if: success()
 
+      - name: Prepare coverage report for SonarCloud
+        run: |
+          sed -i 's|/home/runner/work/open-core/open-core/src|src|g' coverage.xml
+
       - name: Analyze with SonarCloud
         uses: sonarsource/sonarcloud-github-action@v3.0.0
         env:
