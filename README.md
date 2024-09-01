@@ -1,7 +1,7 @@
 ![`open-core` header image.](asset/header.jpg)
 
-![Build](https://github.com/ilpomo/open-core/actions/workflows/build.yml/badge.svg)
-![Tests](https://github.com/ilpomo/open-core/actions/workflows/tests.yml/badge.svg)
+[![Build](https://github.com/ilpomo/open-core/actions/workflows/build.yml/badge.svg)]()
+[![Tests](https://github.com/ilpomo/open-core/actions/workflows/tests.yml/badge.svg)]()
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ilpomo_open-core&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=ilpomo_open-core)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=ilpomo_open-core&metric=bugs)](https://sonarcloud.io/summary/new_code?id=ilpomo_open-core)
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=ilpomo_open-core&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=ilpomo_open-core)
@@ -46,19 +46,19 @@ third-party libraries, like [msgspec](https://github.com/jcrist/msgspec), [PyZMQ
 
 ## How-To
 
-### Step 0: think about the *_who_* and the *_how_*
+### Step 0: think about the *who* and the *how*
 
 Deconstruct the problem into its smaller parts.
 Think about the responsibilities: who should take care of each part? 
 Think about the information flow: how the data is moving between each part?
 Think about the blocking computation: how can these parts be scaled if necessary?
 
-### Step 1: define the *_actors_*
+### Step 1: define the *actors*
 
 Create an actor implementation by simply inheriting from the `AbstractActor` class.
 Define its `start(...)` abstract coroutine that represent what the actor will do once it is up and running.
 
-### Step 2: define the *_services_*
+### Step 2: define the *services*
 
 For each actor implementation, create a function and inside this function:
 1. Create an instance of the actor;
@@ -69,13 +69,13 @@ For each actor implementation, create a function and inside this function:
 
 These functions hosting a living actor will be the services.
 
-### Step 3: define the *_processes_*
+### Step 3: define the *processes*
 
 To run each service independently of each other, pass each one of them to a dedicated `multiprocessing.Process()` as a
 target function.
 Run the processes and enjoy.
 
-### Step 4: improve the *_architecture_*
+### Step 4: improve the *architecture*
 
 Test it and redesign it accordingly.
 Designing an optimized software architecture is a work of Art and labor limae,
@@ -88,28 +88,58 @@ but no matter what, in the end this is one will be achieved thanks to `open-core
 
 ## Installation
 
-`open-core` is listed in The Python Package Index (PyPI), so t is possible to get it using `pip`, 
-but the tests folder is not included in the default package.
-To run the tests, it is necessary to clone this repository.
+### Installing from `main` branch
 
-### Using pip (without tests):
+The latest version of `open-core` can be installed directly from the `main` branch on GitHub
+using the following command:
 
-```sh
-pip install open-core
+```shell
+pip install git+https://github.com/ilpomo/open-core.git
 ```
 
-### Using the full repository (with tests):
+### Installing from `vX.X.Z` release version
 
-```commandline
+To install a specific release version of `open-core`, just edit `vX.Y.Z` with the desired release's tag:
+
+```shell
+pip install https://github.com/ilpomo/open-core/archive/refs/tags/vX.Y.Z.tar.gz
+```
+
+### Installing for Contributors (with tests and development dependencies)
+
+Contributors need to install the project with the tests folder and additional development dependencies by following 
+these steps:
+
+#### Clone the repository:
+
+First, clone the repository to the local machine:
+
+```shell
 git clone https://github.com/ilpomo/open-core.git
+```
+
+#### Install the package with development dependencies:
+
+Navigate to the cloned repository directory and install the package with the development dependencies:
+
+```shell
+pip install -e .[dev]
+```
+
+This command installs the package in editable mode (-e) along with the dependencies listed under the [dev] extras in 
+the `pyproject.toml` file.
+
+#### Run the tests:
+
+Run the tests to ensure everything is set up correctly:
+
+```shell
+pytest
 ```
 
 ## Dependencies
 
-`open-core` will always reduce dependencies to the extreme minimum.
-
-For end users, the dependencies are specified in the `pyproject.toml` file and installed automatically when using 
-`pip install open-core`:
+### Standard Dependencies
 
 - [msgspec](https://github.com/jcrist/msgspec): A fast serialization and validation library, with builtin support for 
 JSON, MessagePack, YAML, and TOML.
@@ -117,8 +147,7 @@ JSON, MessagePack, YAML, and TOML.
 - [uvloop](https://github.com/MagicStack/uvloop): Ultra fast asyncio event loop.
   <sub>(**NOTE**: not available on Windows, fallback to Python default asyncio event loop.)</sub>
 
-For contributors, the extra dependencies for testing and development are specified in the `pyproject.toml` file under 
-the dev optional dependencies group, install them using `pip install open-core[dev]`.
+### Development Dependencies
 
 - [pytest](https://github.com/pytest-dev/pytest): The pytest framework makes it easy to write small tests, yet scales 
 to support complex functional testing.
